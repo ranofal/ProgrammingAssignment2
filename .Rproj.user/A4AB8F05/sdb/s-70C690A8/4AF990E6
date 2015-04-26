@@ -1,0 +1,16 @@
+{
+    "contents" : "\n##This function create a speical \"vector\" which is really a list containing a function to\n##set the value of the matrix m\n##get the value of the matrix m\n##set the value of the inverse matrix im\n##get the value of the inverse matrix im\n\nmakeCacheMatrix <- function(m = matrix()) {\n    im <- NULL  #first inverse matrix is Null, \n    set <- function(y) { #set function saves the matrix m and the inverse matrix to Null \n        m <<- y \n        im <<- NULL\n    }\n    get <- function() m  #get function simply returns matrix m\n    setinv <- function(m) im <<- solve(m) #function calculate the inverse matrix matrix \n    getinv <- function() im  #function returns inverse matrix\n    list(set = set , get = get, setinv = setinv, getinv = getinv)\n}\n\n\n## This function finds the inverse of the special \"matrix\" created with the above function\n## However, if first checks to see if the inverse matrix has already been calculated.\n## If so, it gets the inverse from the cache and skips the computation. \n## Otherwise, it calculates the inverse of the data and sets the value of the inverse \n## in the cache via the setinv function \n\ncacheSolve <- function(m, ...) {\n    ## Return a matrix that is the inverse of matrix m\n    im <- m$getinv() #first check if the inverse matrix is cached\n    if (!is.null(im)) { #if yes \n        message(\"getting cached data\") #simply type a message\n        return(im) #then simply returns the cached value the inverse matrix\n    }\n    data <- m$get() #get the matrix \n    im <- solve(data) #calculate the inverse matrix \n    m$setinv(im) #cache the inverse matrix \n    im #retun the inverse matrix\n}\n\n##This function calc the time when calling inverse function \n##The point is to check if the cached inverse matrix are retrieved faster\ncalcTime <- function(m) {\n    st <- Sys.time()\n    im <- cacheSolve(makeCacheMatrix(m))\n    #print(im)\n    et <- Sys.time() \n    tt <- et - st \n    message(\"time taken \",tt)\n    im\n}\n",
+    "created" : 1430025958639.000,
+    "dirty" : true,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "254931170",
+    "id" : "4AF990E6",
+    "lastKnownWriteTime" : 1430079700,
+    "path" : "C:/ramziPri/R_workarea/assignment2/ProgrammingAssignment2/cachematrix.R",
+    "project_path" : "cachematrix.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}
